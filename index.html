@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" type="image/png" href="/icon.png" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+
+    <script defer src="script.js"></script>
+    <title>mapty // Map your workouts</title>
+  </head>
+  <body>
+    <header class="header">
+      <button class="btn hamburger-btn">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="800px"
+          height="800px"
+          viewBox="0 0 24 24"
+          fill="none"
+        >
+          <path
+            d="M4 18L20 18"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <path
+            d="M4 12L20 12"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <path
+            d="M4 6L20 6"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </svg>
+      </button>
+      <img src="logo.png" alt="Logo" class="logo" />
+    </header>
+    <div class="sidebar-map-container">
+      <aside class="sidebar">
+        <ul class="workouts">
+          <!-- <li class="workout workout--running" data-id="1234567890">
+            <h2 class="workout__title">Running on April 14</h2>
+            <div class="workout__details">
+              <span class="workout__icon">🏃🏻‍♂️</span>
+              <span class="workout__value">5.2</span>
+              <span class="workout__unit">km</span>
+            </div>
+            <div class="workout__details">
+              <span class="workout__icon">⏱</span>
+              <span class="workout__value">24</span>
+              <span class="workout__unit">min</span>
+            </div>
+            <div class="workout__details">
+              <span class="workout__icon">⚡️</span>
+              <span class="workout__value">4.6</span>
+              <span class="workout__unit">min/km</span>
+            </div>
+          </li>
+  
+          <li class="workout workout--cycling" data-id="1234567891">
+            <h2 class="workout__title">Cycling on April 5</h2>
+            <div class="workout__details">
+              <span class="workout__icon">🚴🏻‍♂️</span>
+              <span class="workout__value">27</span>
+              <span class="workout__unit">km</span>
+            </div>
+            <div class="workout__details">
+              <span class="workout__icon">⏱</span>
+              <span class="workout__value">95</span>
+              <span class="workout__unit">min</span>
+            </div>
+            <div class="workout__details">
+              <span class="workout__icon">⚡️</span>
+              <span class="workout__value">16</span>
+              <span class="workout__unit">km/h</span>
+            </div>
+          </li>
+          <li class="workout workout--weightlifting" data-id="1234567891">
+            <h2 class="workout__title">Weightlifting on April 5</h2>
+            <div class="workout__details">
+              <span class="workout__icon">🏋🏻‍♂️</span>
+              <span class="workout__value">Easy</span>
+              <span class="workout__unit">intensity</span>
+            </div>
+            <div class="workout__details">
+              <span class="workout__icon">⏱</span>
+              <span class="workout__value">95</span>
+              <span class="workout__unit">min</span>
+            </div>
+            <div class="workout__details">
+              <span class="workout__icon">✅</span>
+              <span class="workout__value">3</span>
+              <span class="workout__unit">exercises</span>
+            </div>
+          </li>
+          <li class="workout workout--yoga" data-id="1234567891">
+            <h2 class="workout__title">Yoga on April 5</h2>
+            <div class="workout__details">
+              <span class="workout__icon">🧘🏻‍♂️</span>
+              <span class="workout__value">Easy</span>
+              <span class="workout__unit">intensity</span>
+            </div>
+            <div class="workout__details">
+              <span class="workout__icon">⏱</span>
+              <span class="workout__value">95</span>
+              <span class="workout__unit">min</span>
+            </div>
+            <div class="workout__details">
+              <span class="workout__icon">✅</span>
+              <span class="workout__value">3</span>
+              <span class="workout__unit">exercises</span>
+            </div>
+          </li> -->
+        </ul>
+      </aside>
+
+      <div id="map"></div>
+    </div>
+
+    <dialog class="dialog">
+      <button class="btn dialog__close-btn">X</button>
+      <div class="dialog__container" data-step="1">
+        <h3 class="dialog__heading">Choose your workout</h3>
+        <div class="dialog__workout-choice-container">
+          <form class="workout-choice-form">
+            <label class="dialog__workout-choice" htmlFor="running-radio-btn">
+              <input
+                type="radio"
+                name="workout"
+                id="running-radio-btn"
+                value="running"
+                required
+              />
+              <span>🏃🏻‍♂️ Running</span>
+            </label>
+            <label class="dialog__workout-choice" htmlFor="cycling-radio-btn">
+              <input
+                type="radio"
+                name="workout"
+                id="cycling-radio-btn"
+                value="cycling"
+                required
+              />
+              <span>🚴🏻‍♂️ Cycling</span>
+            </label>
+            <label
+              class="dialog__workout-choice"
+              htmlFor="weightlifting-radio-btn"
+            >
+              <input
+                type="radio"
+                name="workout"
+                id="weightlifting-radio-btn"
+                value="weightlifting"
+                required
+              />
+              <span>🏋🏻‍♂️ Weightlifting</span>
+            </label>
+            <label class="dialog__workout-choice" htmlFor="yoga-radio-btn">
+              <input
+                type="radio"
+                name="workout"
+                id="yoga-radio-btn"
+                value="yoga"
+                required
+              />
+              <span>🧘🏻‍♂️ Yoga</span>
+            </label>
+            <div class="dialog__nav-btn-container">
+              <button class="btn dialog__nav-btn left-btn">Next ></button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="dialog__container" data-step="2">
+        <h3 class="dialog__heading">Please Fill the details</h3>
+
+        <form class="form" data-type="1">
+          <div class="form__row">
+            <label class="form__label" htmlFor="distance-input">Distance</label>
+            <input
+              class="form__input form__input--distance"
+              name="distance"
+              placeholder="km"
+              id="distance-input"
+              required
+            />
+          </div>
+          <div class="form__row">
+            <label class="form__label" htmlFor="duration-input">Duration</label>
+            <input
+              class="form__input form__input--duration"
+              name="duration"
+              id="duration-input"
+              placeholder="min"
+              required
+            />
+          </div>
+          <button type="submit" class="btn form__btn left-btn">OK</button>
+        </form>
+
+        <form class="form" data-type="2">
+          <div class="form__row">
+            <label class="form__label" htmlFor="exercise-input"
+              >No of Exercises</label
+            >
+            <input
+              type="number"
+              class="form__input"
+              name="exercise"
+              placeholder="exercises"
+              id="exercise-input"
+              required
+            />
+          </div>
+          <div class="form__row">
+            <label class="form__label" htmlFor="duration-input">Duration</label>
+            <input
+              class="form__input form__input--duration"
+              name="duration"
+              id="duration-input"
+              placeholder="min"
+              required
+            />
+          </div>
+          <div class="form__row">
+            <label class="form__label" htmlFor="intensity-select"
+              >Intensity</label
+            >
+            <select
+              class="form__input form__input--type"
+              id="intensity-select"
+              required
+              name="intensity"
+            >
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+          <button type="submit" class="btn form__btn left-btn">OK</button>
+        </form>
+      </div>
+    </dialog>
+  </body>
+</html>
