@@ -7,13 +7,9 @@ const forms = document.querySelectorAll('.form');
 const dialogSteps = document.querySelectorAll('.dialog__container');
 const workoutChoiceForm = document.querySelector('.workout-choice-form');
 const containerWorkouts = document.querySelector('.workouts');
-const inputType = document.querySelector('.form__input--type');
-const inputDistance = document.querySelector('.form__input--distance');
-const inputDuration = document.querySelector('.form__input--duration');
-const inputCadence = document.querySelector('.form__input--cadence');
-const inputElevation = document.querySelector('.form__input--elevation');
 const dialog = document.querySelector('dialog');
 const closeButton = document.querySelector('.dialog__close-btn');
+const hamburgerButton = document.querySelector('.hamburger-btn');
 
 function formatDate(date) {
   const month = date.getMonth();
@@ -230,7 +226,9 @@ class WorkoutList {
                 <span class="workout__icon">${
                   workout.type === 'weightlifting' ? '🏋🏻‍♂️' : '🧘🏻‍♂️'
                 }</span>
-                <span class="workout__value">${workout.intensity}</span>
+                <span class="workout__value">${
+                  workout.intensity[0].toUpperCase() + workout.intensity.slice(1)
+                }</span>
                 <span class="workout__unit">intensity</span>
               </div>
               <div class="workout__details">
@@ -363,6 +361,10 @@ class App {
 
       if (!workout) return;
       this._moveToPopup([workout.location.lat, workout.location.lng]);
+    });
+    hamburgerButton.addEventListener('click', () => {
+      document.body.classList.toggle('toggle-sidebar');
+      setTimeout(() => this.#map.invalidateSize(), 300);
     });
   }
 
