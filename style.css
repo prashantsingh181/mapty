@@ -452,4 +452,32 @@ dialog {
     padding: 0.3rem 1rem;
     font-size: 1.3rem;
   }
+
+  /* Popup width is defined in JS using options */
+  .leaflet-popup .leaflet-popup-content-wrapper {
+    padding-right: 0.4rem;
+  }
+
+  .leaflet-popup .leaflet-popup-content {
+    font-size: 1.25rem;
+    margin: 1rem 1.5rem;
+  }
+
+  .leaflet-popup-content-wrapper {
+    border-width: 3px;
+  }
+
+  .leaflet-popup {
+    min-width: 18rem;
+    max-width: 26rem;
+  }
+  /* .cycling-popup .leaflet-popup-content-wrapper {
+  border-left: 5px solid var(--color-brand--1);
+}
+.weightlifting-popup .leaflet-popup-content-wrapper {
+  border-left: 5px solid var(--color-brand--3);
+}
+.yoga-popup .leaflet-popup-content-wrapper {
+  border-left: 5px solid var(--color-brand--4);
+} */
 }

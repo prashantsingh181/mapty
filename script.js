@@ -227,7 +227,8 @@ class WorkoutList {
                   workout.type === 'weightlifting' ? '🏋🏻‍♂️' : '🧘🏻‍♂️'
                 }</span>
                 <span class="workout__value">${
-                  workout.intensity[0].toUpperCase() + workout.intensity.slice(1)
+                  workout.intensity[0].toUpperCase() +
+                  workout.intensity.slice(1)
                 }</span>
                 <span class="workout__unit">intensity</span>
               </div>
@@ -360,6 +361,9 @@ class App {
       );
 
       if (!workout) return;
+      if (document.documentElement.clientWidth < 1024) {
+        document.body.classList.toggle('toggle-sidebar');
+      }
       this._moveToPopup([workout.location.lat, workout.location.lng]);
     });
     hamburgerButton.addEventListener('click', () => {
@@ -480,7 +484,7 @@ class App {
         .addTo(this.#markerLayer)
         .bindPopup(
           L.popup({
-            maxWidth: 250,
+            maxWidth: 260,
             minWidth: 100,
             autoClose: false,
             closeOnClick: false,
